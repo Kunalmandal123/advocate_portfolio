@@ -7,7 +7,7 @@ const PracticeAreas: React.FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const stats = [
-    { value: "10+", label: "Years Experience", icon: <Briefcase className="w-4 h-4" /> },
+    { value: "5+", label: "Years Experience", icon: <Briefcase className="w-4 h-4" /> },
     { value: "1200+", label: "Cases Handled", icon: <FileText className="w-4 h-4" /> },
     { value: "96%", label: "Success Rate", icon: <CheckCircle2 className="w-4 h-4" /> },
     { value: "24/7", label: "Client Support", icon: <Users className="w-4 h-4" /> },
@@ -29,7 +29,7 @@ const PracticeAreas: React.FC = () => {
               <span className="block text-[#c5a059] text-2xl md:text-3xl mt-4">Giridih & Hazaribagh Districts</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-              Comprehensive legal representation across Civil Court Giridih, Civil Court Hazaribagh, 
+              Comprehensive legal representation across Civil Court Giridih, h, 
               and SDM Court Bagodar-Sariya with proven success in complex litigation.
             </p>
           </div>

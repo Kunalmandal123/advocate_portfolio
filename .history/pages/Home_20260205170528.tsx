@@ -140,7 +140,7 @@ const Home: React.FC = () => {
   const whyChooseUs = [
     { 
       title: 'Local Court Expertise', 
-      desc: 'Deep knowledge of Civil Court Giridih, Civil Court Hazaribagh, and SDM Court Bagodar-Sariya procedures and judges.', 
+      desc: 'Deep knowledge of Civil Court Giridih, h, and SDM Court Bagodar-Sariya procedures and judges.', 
       icon: <UserCheck className="w-8 h-8 md:w-10 md:h-10" /> 
     },
     { 
@@ -200,7 +200,7 @@ const Home: React.FC = () => {
         <meta name="geo.region" content="IN-JH" />
         <meta name="geo.placename" content="Giridih, Hazaribagh, Bagodar-Sariya, Ranchi" />
         <meta property="og:title" content="Advocate Vikas Kumar - Premier Legal Services in Giridih & Hazaribagh" />
-        <meta property="og:description" content="Expert legal representation at Civil Court Giridih, Civil Court Hazaribagh, SDM Court Bagodar-Sariya. Consultation available in Ranchi High Court jurisdiction." />
+        <meta property="og:description" content="Expert legal representation at Civil Court Giridih, h, SDM Court Bagodar-Sariya. Consultation available in Ranchi High Court jurisdiction." />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://advocatevikaskumar.com" />
         
@@ -316,7 +316,7 @@ const Home: React.FC = () => {
                 <div className="flex items-center justify-center lg:justify-start space-x-4">
                   <div className="h-px w-8 md:w-12 bg-[#c5a059]" />
                   <span className="text-[#c5a059] font-bold text-[10px] md:text-xs uppercase tracking-[0.4em]">
-                    Advocate at Civil Court Giridih | SDM Court Bagodar-Sariya | Civil Court Hazaribagh | High Court Ranchi
+                    Advocate at Civil Court Giridih | SDM Court Bagodar-Sariya | h | High Court Ranchi
                   </span>
                 </div>
                 
@@ -328,7 +328,7 @@ const Home: React.FC = () => {
                 
                 <p className="text-base md:text-xl text-slate-500 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light px-4 lg:px-0">
                   Advocate Vikas Kumar (B.A.LL.B, LL.M) - Your trusted lawyer for Civil Court Giridih, 
-                  Civil Court Hazaribagh, SDM Court Bagodar-Sariya, and consultation for High Court Ranchi cases. 
+                  h, SDM Court Bagodar-Sariya, and consultation for High Court Ranchi cases. 
                   Specializing in Civil, Criminal, Family, and Property Law matters.
                 </p>
                 
@@ -379,7 +379,7 @@ const Home: React.FC = () => {
                     B.A.LL.B, LL.M | Advocate
                   </p>
                   <p className="text-slate-600 text-xs mt-2">
-                    Civil Court Giridih • Civil Court Hazaribagh • SDM Court Bagodar-Sariya
+                    Civil Court Giridih • h • SDM Court Bagodar-Sariya
                   </p>
                 </div>
               </div>
@@ -438,7 +438,7 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              Expert legal services available at Civil Court Giridih, Civil Court Hazaribagh, 
+              Expert legal services available at Civil Court Giridih, h, 
               SDM Court Bagodar-Sariya, and consultation for High Court Ranchi matters.
             </motion.p>
           </div>
@@ -622,7 +622,7 @@ const Home: React.FC = () => {
               </h2>
               <p className="text-slate-500 mb-10 leading-relaxed font-light text-base md:text-lg">
                 Conveniently located in Sariya, Giridih with easy access to Civil Court Giridih, 
-                Civil Court Hazaribagh, and SDM Court Bagodar-Sariya. Also available for consultations 
+                h, and SDM Court Bagodar-Sariya. Also available for consultations 
                 in Ranchi for High Court matters.
               </p>
               
@@ -716,7 +716,7 @@ const Home: React.FC = () => {
             </h2>
             <p className="text-slate-500 text-base md:text-2xl mb-12 font-light max-w-2xl mx-auto leading-relaxed">
               Schedule a consultation with Advocate Vikas Kumar for Civil Court Giridih, 
-              Civil Court Hazaribagh, SDM Court Bagodar-Sariya, or High Court Ranchi matters.
+              h, SDM Court Bagodar-Sariya, or High Court Ranchi matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 

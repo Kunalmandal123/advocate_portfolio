@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -19,10 +19,13 @@ import {
   FileText,
   Building2,
   Users,
-  Home as HomeIcon
+  Home as HomeIcon,
+  Navigation,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
-// Simple fadeInUp animation without complex typing
+// Simple fadeInUp animation
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -45,6 +48,162 @@ const getIcon = (iconName: string) => {
 
 const Home: React.FC = () => {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const autoPlayRef = useRef<number | null>(null);
+
+  const testimonials = [
+    {
+      id: '1',
+      clientName: 'Rajesh Sharma',
+      role: 'Property Dispute Client',
+      content: 'Advocate Vikas Kumar handled our property dispute at Civil Court Giridih with exceptional expertise. His understanding of local laws is remarkable.',
+      rating: 5,
+      location: 'Giridih',
+      area: 'Property Law',
+      year: '2023'
+    },
+    {
+      id: '2',
+      clientName: 'Priya Verma',
+      role: 'Criminal Defense Client',
+      content: 'Professional, ethical, and result-oriented. He represented my criminal case in Hazaribagh court and got me justice when I needed it most.',
+      rating: 5,
+      location: 'Giridih',
+      area: 'Criminal Law',
+      year: '2024'
+    },
+    {
+      id: '3',
+      clientName: 'Amit Kumar',
+      role: 'Family Law Client',
+      content: 'Best advocate in Sariya area. Handled our family property matter efficiently at SDM Court Bagodar. Highly recommended for all legal matters.',
+      rating: 5,
+      location: 'Sariya',
+      area: 'Family Law',
+      year: '2023'
+    },
+    {
+      id: '4',
+      clientName: 'Sunita Devi',
+      role: 'Civil Case Client',
+      content: 'My civil case was stuck for 2 years. Advocate Vikas took it in h and resolved it within 6 months. Truly professional.',
+      rating: 5,
+      location: 'Giridih',
+      area: 'Civil Law',
+      year: '2024'
+    },
+    {
+      id: '5',
+      clientName: 'Ramesh Singh',
+      role: 'Land Documentation Client',
+      content: 'Expert in property documentation. Got my land registration done properly at SDM Court Bagodar. Saved me from future legal troubles.',
+      rating: 5,
+      location: 'Bagodar',
+      area: 'Property Documentation',
+      year: '2023'
+    },
+    {
+      id: '6',
+      clientName: 'Meena Kumari',
+      role: 'Divorce Case Client',
+      content: 'Handled my divorce case with utmost sensitivity at Family Court Giridih. Professional yet compassionate approach. Highly satisfied.',
+      rating: 5,
+      location: 'Giridih',
+      area: 'Family Law',
+      year: '2024'
+    },
+    {
+      id: '7',
+      clientName: 'Vikram Jha',
+      role: 'Business Contract Client',
+      content: 'Drafted perfect business contracts for my company. His legal advice prevented major disputes. The best corporate lawyer in the region.',
+      rating: 5,
+      location: 'Ranchi',
+      area: 'Corporate Law',
+      year: '2023'
+    },
+    {
+      id: '8',
+      clientName: 'Anjali Roy',
+      role: 'Consumer Case Client',
+      content: 'Fought my consumer case aggressively at Civil Court Giridih. His argument skills are exceptional. Got full compensation.',
+      rating: 5,
+      location: 'Giridih',
+      area: 'Consumer Law',
+      year: '2024'
+    },
+    {
+      id: '9',
+      clientName: 'Sanjay Gupta',
+      role: 'Bail Matter Client',
+      content: 'Got bail for my brother in a serious criminal case at Hazaribagh Court. His deep knowledge of criminal procedure saved us.',
+      rating: 5,
+      location: 'Giridih',
+      area: 'Criminal Defense',
+      year: '2023'
+    },
+    {
+      id: '10',
+      clientName: 'Kavita Mishra',
+      role: 'Will Drafting Client',
+      content: 'Precise will drafting and succession planning. Explained complex legal terms in simple language. Trustworthy and reliable.',
+      rating: 5,
+      location: 'Sariya',
+      area: 'Legal Documentation',
+      year: '2024'
+    },
+    {
+      id: '11',
+      clientName: 'Mohan Lal',
+      role: 'Civil Appeal Client',
+      content: 'Handled my civil appeal at High Court Ranchi. His research work and case preparation are thorough. Got favorable judgment.',
+      rating: 5,
+      location: 'Ranchi',
+      area: 'Civil Appeals',
+      year: '2023'
+    },
+    {
+      id: '12',
+      clientName: 'Rekha Sharma',
+      role: 'Rent Dispute Client',
+      content: 'Resolved my landlord-tenant dispute efficiently at SDM Court. His negotiation skills saved time and money. Highly recommended.',
+      rating: 5,
+      location: 'Bagodar',
+      area: 'Civil Disputes',
+      year: '2024'
+    },
+    {
+      id: '13',
+      clientName: 'Arun Patel',
+      role: 'Contract Breach Client',
+      content: 'Successfully handled my contract breach case at Civil Court Giridih. Strategic approach and timely court appearances.',
+      rating: 5,
+      location: 'Giridih',
+      area: 'Contract Law',
+      year: '2023'
+    },
+    {
+      id: '14',
+      clientName: 'Suman Bhardwaj',
+      role: 'Child Custody Client',
+      content: 'Fought my child custody battle with dedication. His emotional support along with legal expertise was invaluable.',
+      rating: 5,
+      location: 'Giridih',
+      area: 'Family Law',
+      year: '2024'
+    },
+    {
+      id: '15',
+      clientName: 'Deepak Roshan',
+      role: 'Property Title Client',
+      content: 'Cleared cloud on my property title. His expertise in local land laws is unmatched. Now I have clear ownership documents.',
+      rating: 5,
+      location: 'Sariya',
+      area: 'Property Law',
+      year: '2023'
+    }
+  ];
 
   useEffect(() => {
     const hasAgreed = sessionStorage.getItem('bci-disclaimer-agreed');
@@ -53,26 +212,55 @@ const Home: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    // Auto-play testimonials
+    autoPlayRef.current = window.setInterval(() => {
+      nextTestimonial();
+    }, 5000);
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [currentTestimonial]);
+
   const handleAgree = () => {
     sessionStorage.setItem('bci-disclaimer-agreed', 'true');
     setShowDisclaimer(false);
+  };
+
+  const nextTestimonial = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+
+  const prevTestimonial = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   const practiceAreas = [
     {
       id: 'civil-law',
       title: 'Civil Disputes',
-      description: 'Comprehensive representation in civil litigation, property disputes, and contractual matters at Civil Court Giridih & Hazaribagh.',
+      description: 'Comprehensive representation in civil litigation, property disputes, and contractual matters at Civil Court Giridih.',
       icon: 'Scale',
-      availableAt: 'Civil Court Giridih, Hazaribagh'
+      availableAt: 'Civil Court Giridih'
     },
+
     {
-      id: 'criminal-law',
-      title: 'Criminal Defense',
-      description: 'Aggressive defense strategies for criminal cases with thorough investigation and court representation.',
-      icon: 'Gavel',
-      availableAt: 'All District Courts'
+      id: 'property-disputes',
+      title: 'Property Matters',
+      description: 'Expert guidance on property registration, title verification, land disputes, and documentation.',
+      icon: 'HomeIcon',
+      availableAt: 'Sub-Division Court, Civil Court'
     },
+
     {
       id: 'family-law',
       title: 'Family Law',
@@ -80,13 +268,15 @@ const Home: React.FC = () => {
       icon: 'Users',
       availableAt: 'Family Courts & Civil Courts'
     },
-    {
-      id: 'property-disputes',
-      title: 'Property Matters',
-      description: 'Expert guidance on property registration, title verification, land disputes, and documentation.',
-      icon: 'HomeIcon',
-      availableAt: 'SDM Court, Civil Court'
+
+     {
+      id: 'criminal-law',
+      title: 'Criminal Defense',
+      description: 'Aggressive defense strategies for criminal cases with thorough investigation and court representation.',
+      icon: 'Gavel',
+      availableAt: 'All District Courts'
     },
+    
     {
       id: 'drafting',
       title: 'Legal Documentation',
@@ -103,49 +293,22 @@ const Home: React.FC = () => {
     }
   ];
 
-  const testimonials = [
-    {
-      id: '1',
-      clientName: 'Rajesh Sharma',
-      role: 'Property Dispute Client',
-      content: 'Advocate Vikas Kumar handled our property dispute at Civil Court Giridih with exceptional expertise. His understanding of local laws is remarkable.',
-      rating: 5,
-      location: 'Giridih'
-    },
-    {
-      id: '2',
-      clientName: 'Priya Verma',
-      role: 'Criminal Defense Client',
-      content: 'Professional, ethical, and result-oriented. He represented my criminal case in Hazaribagh court and got me justice when I needed it most.',
-      rating: 5,
-      location: 'Hazaribagh'
-    },
-    {
-      id: '3',
-      clientName: 'Amit Kumar',
-      role: 'Family Law Client',
-      content: 'Best advocate in Sariya area. Handled our family property matter efficiently at SDM Court Bagodar. Highly recommended for all legal matters.',
-      rating: 5,
-      location: 'Sariya'
-    }
-  ];
-
   const stats = [
-    { label: 'Years of Legal Practice', val: '18+' },
+    { label: 'Years of Legal Practice', val: '5+' },
     { label: 'Cases Handled Successfully', val: '1200+' },
-    { label: 'Courts Covered in Jharkhand', val: '8+' },
+    { label: 'Courts Covered in Jharkhand', val: '3+' },
     { label: 'Client Satisfaction Rate', val: '96%' }
   ];
 
   const whyChooseUs = [
     { 
       title: 'Local Court Expertise', 
-      desc: 'Deep knowledge of Civil Court Giridih, h, and SDM Court Bagodar-Sariya procedures and judges.', 
+      desc: 'Deep knowledge of Civil Court Giridih, h, and Sub-Division Court Bagodar-Sariya procedures and judges.', 
       icon: <UserCheck className="w-8 h-8 md:w-10 md:h-10" /> 
     },
     { 
       title: 'Transparent Legal Fees', 
-      desc: 'Clear fee structure with no hidden charges. Affordable legal services for residents of Giridih, Sariya, and Hazaribagh.', 
+      desc: 'Clear fee structure with no hidden charges. Affordable legal services for residents of Giridih, Sariya.', 
       icon: <Eye className="w-8 h-8 md:w-10 md:h-10" /> 
     },
     { 
@@ -176,59 +339,59 @@ const Home: React.FC = () => {
       address: "District Court Complex, Giridih, Jharkhand 815301",
       cases: "Civil Disputes, Property Matters, Family Law"
     },
+   
     {
-      court: "Civil Court, Hazaribagh",
-      address: "District Court Complex, Hazaribagh, Jharkhand 825301",
-      cases: "Civil Litigation, Criminal Defense, Documentation"
-    },
-    {
-      court: "SDM Court, Bagodar-Sariya",
+      court: "Sub-Division Court, Bagodar-Sariya",
       address: "Sub-Divisional Magistrate Court, Bagodar, Giridih District",
       cases: "Revenue Matters, Land Disputes, Local Legal Issues"
+    },
+    {
+      court: "High Court of Jharkhand, Ranchi",
+      address: "High Court Campus, Doranda, Ranchi, Jharkhand 834002",
+      cases: "Writ Petitions, Criminal & Civil Appeals, Bail Matters, Constitutional Cases"
     }
   ];
 
   return (
     <div className="bg-[#fcfcfc] overflow-x-hidden">
-      {/* SEO Meta Tags using React Helmet */}
+      {/* SEO Meta Tags - Keep as before */}
       <Helmet>
-        <title>Advocate Vikas Kumar | Best Lawyer in Giridih, Hazaribagh, Bagodar-Sariya</title>
-        <meta name="description" content="Top-rated Advocate Vikas Kumar (B.A.LL.B, LL.M) practicing at Civil Court Giridih, Hazaribagh & SDM Court Bagodar-Sariya. Expert in Civil, Criminal, Family Law, Property Matters with 18+ years experience." />
-        <meta name="keywords" content="advocate in giridih, lawyer in hazaribagh, civil court lawyer, criminal lawyer, family law advocate, property lawyer, SDM court bagodar, legal consultant, best advocate in jharkhand" />
+        <title>Advocate Vikas Kumar | Best Lawyer in Giridih, Bagodar-Sariya</title>
+        <meta name="description" content="Top-rated Advocate Vikas Kumar (B.A.LL.B, LL.M) practicing at Civil Court Giridih & Sub-Division Court Bagodar-Sariya. Expert in Civil, Criminal, Family Law, Property Matters with 5+ years experience." />
+        <meta name="keywords" content="advocate in giridih, civil court lawyer, criminal lawyer, family law advocate, property lawyer, Sub-Division court bagodar-sariya, legal consultant, best advocate in jharkhand" />
         <meta name="author" content="Advocate Vikas Kumar" />
         <meta name="robots" content="index, follow" />
         <meta name="geo.region" content="IN-JH" />
-        <meta name="geo.placename" content="Giridih, Hazaribagh, Bagodar-Sariya, Ranchi" />
-        <meta property="og:title" content="Advocate Vikas Kumar - Premier Legal Services in Giridih & Hazaribagh" />
-        <meta property="og:description" content="Expert legal representation at Civil Court Giridih, h, SDM Court Bagodar-Sariya. Consultation available in Ranchi High Court jurisdiction." />
+        <meta name="geo.placename" content="Giridih, Bagodar-Sariya, Suriya" />
+        <meta property="og:title" content="Advocate Vikas Kumar - Premier Legal Services in Giridih" />
+        <meta property="og:description" content="Expert legal representation at Civil Court Giridih, Sub-Division Court Bagodar-Sariya. Consultation available in Ranchi High Court jurisdiction." />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://advocatevikaskumar.com" />
         
-        {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LegalService",
             "name": "Advocate Vikas Kumar Legal Chambers",
-            "description": "Expert legal services in Giridih, Hazaribagh, Bagodar-Sariya and High Court Ranchi jurisdiction",
+            "description": "Expert legal services in Giridih, Bagodar-Sariya and High Court Ranchi jurisdiction",
             "url": "https://advocatevikaskumar.com",
-            "telephone": "+91-9876543210",
+            "telephone": "+91-7549181849",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "Kala Road, Sariya",
+              "streetAddress": "24, Suriya Rd, Suriya, Mandramo",
               "addressLocality": "Giridih",
               "addressRegion": "Jharkhand",
-              "postalCode": "815301",
+              "postalCode": "825320",
               "addressCountry": "IN"
             },
             "geo": {
               "@type": "GeoCoordinates",
-              "latitude": "24.1854",
-              "longitude": "86.3052"
+              "latitude": 24.17800614105382,
+              "longitude": 85.87714331640271
             },
-            "openingHours": "Mo-Fr 10:00-18:00",
+            "openingHours": "Mo-Sa 10:00-18:00",
             "priceRange": "₹₹₹",
-            "areaServed": ["Giridih", "Hazaribagh", "Bagodar", "Sariya", "Ranchi"],
+            "areaServed": ["Giridih", "Bagodar", "Sariya", "Ranchi"],
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
               "name": "Legal Services",
@@ -255,7 +418,7 @@ const Home: React.FC = () => {
         </script>
       </Helmet>
 
-      {/* BCI Disclaimer Modal */}
+      {/* BCI Disclaimer Modal - Keep as before */}
       {showDisclaimer && (
         <motion.div 
           initial={{ opacity: 0 }}
@@ -298,7 +461,7 @@ const Home: React.FC = () => {
         </motion.div>
       )}
 
-      {/* Hero Section */}
+      {/* Hero Section - Keep as before */}
       <section className="relative min-h-[90vh] lg:min-h-screen flex items-center pt-32 pb-16 lg:py-0 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full bg-slate-50/50 lg:border-l border-slate-100" />
@@ -316,20 +479,20 @@ const Home: React.FC = () => {
                 <div className="flex items-center justify-center lg:justify-start space-x-4">
                   <div className="h-px w-8 md:w-12 bg-[#c5a059]" />
                   <span className="text-[#c5a059] font-bold text-[10px] md:text-xs uppercase tracking-[0.4em]">
-                    Advocate at Civil Court Giridih | SDM Court Bagodar-Sariya | h | High Court Ranchi
+                    Advocate at Civil Court Giridih | Sub-Division Court Bagodar-Sariya | High Court Ranchi
                   </span>
                 </div>
                 
                 <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif text-[#0a1128] leading-[1.1] tracking-tight">
                   Expert Legal <br className="hidden md:block"/>
-                  <span className="italic font-normal">Representation</span> in <br className="hidden md:block"/>
-                  <span className="text-[#c5a059]">Giridih & Hazaribagh</span>
+                  <span className="italic font-normal">Representation</span> in 
+                  <span className="text-[#c5a059]"> Giridih</span>
                 </h1>
                 
                 <p className="text-base md:text-xl text-slate-500 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light px-4 lg:px-0">
                   Advocate Vikas Kumar (B.A.LL.B, LL.M) - Your trusted lawyer for Civil Court Giridih, 
-                  h, SDM Court Bagodar-Sariya, and consultation for High Court Ranchi cases. 
-                  Specializing in Civil, Criminal, Family, and Property Law matters.
+                  Sub-Division Court Bagodar-Sariya, and consultation for High Court Ranchi cases. 
+                  Specializing in Civil, Property Law, Family, and Criminal Law matters.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 px-4 lg:px-0">
@@ -341,7 +504,7 @@ const Home: React.FC = () => {
                     <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <a 
-                    href="tel:+919876543210" 
+                    href="tel:+917549181849" 
                     className="w-full sm:w-auto bg-white text-[#0a1128] border-2 border-slate-100 px-8 md:px-12 py-4 md:py-6 rounded-lg font-bold hover:border-[#c5a059] transition-all flex items-center justify-center gap-3 shadow-sm"
                   >
                     <Phone size={20} className="text-[#c5a059]" />
@@ -363,10 +526,10 @@ const Home: React.FC = () => {
                 
                 <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
                   <img 
-                    src="/advocate-vikas-kumar.jpg" 
+                    src="https://image2url.com/r2/default/images/1770465409417-0f54d4e6-cbe1-47dc-892a-e1a94331219c.jpg" 
                     className="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-1000" 
-                    alt="Advocate Vikas Kumar - Best Lawyer in Giridih Hazaribagh" 
-                    title="Advocate Vikas Kumar - Civil Court Lawyer Giridih Hazaribagh"
+                    alt="Advocate Vikas Kumar - Best Lawyer in Giridih" 
+                    title="Advocate Vikas Kumar - Civil Court Lawyer Giridih"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a1128]/40 to-transparent" />
                 </div>
@@ -375,11 +538,11 @@ const Home: React.FC = () => {
                   <h4 className="text-xl md:text-2xl font-serif font-bold text-[#0a1128]">
                     Vikas Kumar
                   </h4>
-                  <p className="text-[#c5a059] font-bold text-[9px] md:text-[10px] uppercase tracking-[0.2em] mt-1">
+                  <p className="text-[#c5a059] font-bold text-[9px] md:text-[10px] uppercase tracking-widest mt-1">
                     B.A.LL.B, LL.M | Advocate
                   </p>
                   <p className="text-slate-600 text-xs mt-2">
-                    Civil Court Giridih • h • SDM Court Bagodar-Sariya
+                    Civil Court Giridih • Sub-Division Court Bagodar-Sariya • High Court Ranchi
                   </p>
                 </div>
               </div>
@@ -388,7 +551,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Stats Banner */}
+      {/* Stats Banner - Keep as before */}
       <section className="bg-[#0a1128] py-16 md:py-24 text-white border-y border-[#c5a059]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 lg:divide-x divide-white/10">
@@ -409,8 +572,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Practice Areas */}
-      <section className="py-24 md:py-40 bg-white">
+      {/* Practice Areas - Reduced padding here + reduced bottom margin on court section */}
+      <section className="py-20 md:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 md:mb-32">
             <motion.span 
@@ -420,7 +583,7 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              Legal Services in Giridih Hazaribagh
+              Legal Services in Giridih
             </motion.span>
             <motion.h2 
               className="text-3xl md:text-6xl font-serif text-[#0a1128]"
@@ -438,8 +601,8 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              Expert legal services available at Civil Court Giridih, h, 
-              SDM Court Bagodar-Sariya, and consultation for High Court Ranchi matters.
+              Expert legal services available at Civil Court Giridih, 
+              Sub-Division Court Bagodar-Sariya, and consultation for High Court Ranchi matters.
             </motion.p>
           </div>
 
@@ -470,9 +633,9 @@ const Home: React.FC = () => {
             ))}
           </div>
 
-          {/* Court Locations Section */}
+          {/* Court Locations Section - reduced bottom margin */}
           <motion.div 
-            className="mt-24 bg-slate-50 p-8 md:p-12 rounded-3xl"
+            className="mt-20 md:mt-24 lg:mt-24 mb-8 md:mb-12 lg:mb-16 bg-slate-50 p-8 md:p-12 rounded-3xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -501,7 +664,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Why Choose Us - Keep as before */}
       <section className="py-24 md:py-40 bg-[#fcfcfc] border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 md:mb-32">
@@ -512,7 +675,7 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              Serving Giridih & Hazaribagh
+              Serving Giridih
             </motion.span>
             <motion.h2 
               className="text-3xl md:text-6xl font-serif text-[#0a1128]"
@@ -521,7 +684,7 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              Why Choose Advocate Vikas Kumar?
+               Why Choose Advocate Vikas Kumar?
             </motion.h2>
           </div>
           
@@ -548,8 +711,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 md:py-40 bg-slate-50">
+      {/* Testimonials Carousel */}
+      <section className="py-24 md:py-40 bg-slate-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 md:mb-32">
             <motion.span 
@@ -559,7 +722,7 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              Client Reviews from Giridih & Hazaribagh
+              Client Reviews from Giridih
             </motion.span>
             <motion.h2 
               className="text-3xl md:text-6xl font-serif text-[#0a1128]"
@@ -572,41 +735,142 @@ const Home: React.FC = () => {
             </motion.h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            {testimonials.map((testimonial, i) => (
-              <motion.div 
-                key={testimonial.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white p-8 md:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+          {/* Testimonial Carousel */}
+          <div className="relative h-[600px] md:h-[500px] lg:h-[450px] group">
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-8 lg:-translate-x-12 z-10 w-12 h-12 md:w-16 md:h-16 bg-white/90 backdrop-blur-sm border border-slate-100 rounded-full flex items-center justify-center text-[#0a1128] shadow-xl hover:bg-white hover:scale-110 hover:text-[#c5a059] transition-all duration-300 opacity-0 group-hover:opacity-100 hover:opacity-100 md:opacity-100"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            
+            <button
+              onClick={nextTestimonial}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-8 lg:translate-x-12 z-10 w-12 h-12 md:w-16 md:h-16 bg-white/90 backdrop-blur-sm border border-slate-100 rounded-full flex items-center justify-center text-[#0a1128] shadow-xl hover:bg-white hover:scale-110 hover:text-[#c5a059] transition-all duration-300 opacity-0 group-hover:opacity-100 hover:opacity-100 md:opacity-100"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Current Testimonial */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="h-full"
               >
-                <div>
-                  <div className="flex text-[#c5a059] mb-6">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} size={16} fill="currentColor" />
-                    ))}
+                <div className="bg-white p-8 md:p-12 lg:p-16 rounded-3xl border border-slate-100 shadow-sm h-full flex flex-col justify-between">
+                  <div>
+                    <div className="flex text-[#c5a059] mb-6">
+                      {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                        <Star key={i} size={20} fill="currentColor" />
+                      ))}
+                    </div>
+                    <Quote className="text-[#c5a059]/20 w-12 h-12 mb-6" />
+                    <p className="text-slate-600 font-serif italic text-xl md:text-2xl leading-relaxed mb-8 md:mb-12">
+                      "{testimonials[currentTestimonial].content}"
+                    </p>
                   </div>
-                  <Quote className="text-[#c5a059]/20 w-12 h-12 mb-4" />
-                  <p className="text-slate-600 font-serif italic text-lg leading-relaxed mb-8">
-                    "{testimonial.content}"
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#0a1128] uppercase text-[10px] tracking-widest">{testimonial.clientName}</h4>
-                  <p className="text-[#c5a059] text-[9px] font-bold uppercase tracking-widest mt-1">{testimonial.role}</p>
-                  {testimonial.location && (
-                    <p className="text-slate-400 text-xs mt-1">{testimonial.location}</p>
-                  )}
+                  <div>
+                    <div className="flex flex-col md:flex-row md:items-end justify-between">
+                      <div>
+                        <h4 className="font-bold text-[#0a1128] text-lg md:text-xl uppercase tracking-widest">
+                          {testimonials[currentTestimonial].clientName}
+                        </h4>
+                        <p className="text-[#c5a059] text-sm font-bold uppercase tracking-widest mt-1">
+                          {testimonials[currentTestimonial].role}
+                        </p>
+                        <div className="flex items-center gap-4 mt-2">
+                          <p className="text-slate-600 text-sm">
+                            {testimonials[currentTestimonial].location}
+                          </p>
+                          <span className="text-slate-400">•</span>
+                          <p className="text-slate-600 text-sm">
+                            {testimonials[currentTestimonial].area}
+                          </p>
+                          <span className="text-slate-400">•</span>
+                          <p className="text-slate-600 text-sm">
+                            {testimonials[currentTestimonial].year}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-4 md:mt-0 text-slate-400 text-sm">
+                        {currentTestimonial + 1} / {testimonials.length}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
-            ))}
+            </AnimatePresence>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-8 absolute bottom-0 left-1/2 -translate-x-1/2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (!isAnimating) {
+                      setIsAnimating(true);
+                      setCurrentTestimonial(index);
+                      setTimeout(() => setIsAnimating(false), 500);
+                    }
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentTestimonial 
+                      ? 'w-8 bg-[#c5a059]' 
+                      : 'bg-slate-300 hover:bg-slate-400'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
+
+          {/* All Testimonials Grid (Hidden on mobile, shown on desktop) */}
+          <motion.div 
+            className="mt-20 hidden lg:block"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl font-serif text-[#0a1128] mb-8 text-center">
+              More Client Experiences
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {testimonials.slice(0, 6).map((testimonial, i) => (
+                <div 
+                  key={testimonial.id}
+                  className={`bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow ${
+                    i === currentTestimonial ? 'ring-2 ring-[#c5a059]' : ''
+                  }`}
+                >
+                  <div className="flex text-[#c5a059] mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} size={14} fill="currentColor" />
+                    ))}
+                  </div>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                    "{testimonial.content}"
+                  </p>
+                  <div>
+                    <h4 className="font-bold text-[#0a1128] text-sm">{testimonial.clientName}</h4>
+                    <p className="text-[#c5a059] text-xs font-bold uppercase">{testimonial.role}</p>
+                    <p className="text-slate-400 text-xs mt-1">{testimonial.location}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Map/Location Section */}
+      {/* Map/Location Section - Keep as before */}
       <section className="py-24 md:py-40 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
@@ -621,8 +885,8 @@ const Home: React.FC = () => {
                 Visit Our Legal Chambers
               </h2>
               <p className="text-slate-500 mb-10 leading-relaxed font-light text-base md:text-lg">
-                Conveniently located in Sariya, Giridih with easy access to Civil Court Giridih, 
-                h, and SDM Court Bagodar-Sariya. Also available for consultations 
+                Conveniently located in Suriya, Giridih with easy access to Civil Court Giridih, 
+                and Sub-Division Court Bagodar-Sariya. Also available for consultations 
                 in Ranchi for High Court matters.
               </p>
               
@@ -636,7 +900,9 @@ const Home: React.FC = () => {
                       Main Office - Giridih
                     </div>
                     <p className="text-slate-800 font-bold text-sm md:text-base">
-                      Kala Road, Sariya, Giridih, Jharkhand 815301
+                      24, Suriya Rd, Suriya, Mandramo,<br/>
+                      Giridih, Jharkhand 825320<br/>
+                      Plus Code: 5VHG+6V Suriya, Jharkhand
                     </p>
                   </div>
                 </div>
@@ -650,7 +916,7 @@ const Home: React.FC = () => {
                       Contact Information
                     </div>
                     <p className="text-slate-800 font-bold text-sm md:text-base">
-                      +91 98765 43210
+                      +91 7549181849
                     </p>
                     <p className="text-slate-600 text-sm">
                       Available for WhatsApp consultations
@@ -678,28 +944,41 @@ const Home: React.FC = () => {
             </motion.div>
             
             <motion.div 
-              className="h-[300px] md:h-[450px] lg:h-[500px] rounded-3xl overflow-hidden border border-slate-100 shadow-2xl relative"
+              className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden border border-slate-100 shadow-2xl group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3627.625693912834!2d86.30275237607986!3d24.59341787780726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f17c60eec7ee67%3A0x357dd902806ed7b7!2sGiridih%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1708684534832!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3627.625693912834!2d85.87714331640271!3d24.17800614105382!2m3!1f17.5!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDEwJzQ3LjciTiA4NcKwNTInMzc.0Ik!5e1!3m2!1sen!2sin!4v1730000000000!5m2!1sen!2sin"
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
                 allowFullScreen={true} 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Advocate Vikas Kumar Office Location - Giridih Jharkhand"
+                title="Advocate Vikas Kumar Office - 24, Suriya Rd, Suriya, Mandramo, Giridih, Jharkhand 825320"
               />
+              
+              {/* Get Directions Button - Overlay on map */}
+              <div className="absolute bottom-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=24.17800614105382,85.87714331640271"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-white text-[#0a1128] px-5 py-3 rounded-xl font-bold shadow-lg hover:bg-[#c5a059] hover:text-white transition-colors border border-slate-200"
+                >
+                  <Navigation size={18} />
+                  <span>Get Directions</span>
+                </a>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - Keep as before */}
       <section className="py-24 md:py-48 bg-white overflow-hidden">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <div className="absolute inset-0 gold-gradient opacity-[0.03] rounded-[3rem] blur-3xl -z-10" />
@@ -712,11 +991,11 @@ const Home: React.FC = () => {
           >
             <div className="absolute top-0 left-0 w-full h-2 md:w-2 md:h-full gold-gradient" />
             <h2 className="text-3xl sm:text-4xl md:text-7xl font-serif text-[#0a1128] mb-8 leading-tight">
-              Need a Lawyer in Giridih or Hazaribagh?
+              Need a Lawyer in Giridih?
             </h2>
             <p className="text-slate-500 text-base md:text-2xl mb-12 font-light max-w-2xl mx-auto leading-relaxed">
               Schedule a consultation with Advocate Vikas Kumar for Civil Court Giridih, 
-              h, SDM Court Bagodar-Sariya, or High Court Ranchi matters.
+              Sub-Division Court Bagodar-Sariya, or High Court Ranchi matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
@@ -726,7 +1005,7 @@ const Home: React.FC = () => {
                 Book Legal Consultation <ArrowRight size={20} />
               </Link>
               <a 
-                href="tel:+919876543210" 
+                href="tel:+917549181849" 
                 className="inline-flex items-center gap-4 bg-white text-[#0a1128] border-2 border-slate-100 px-10 md:px-16 py-5 md:py-8 rounded-xl font-bold tracking-widest uppercase text-[10px] md:text-sm hover:border-[#c5a059] transition-all"
               >
                 <Phone size={20} /> Call Now

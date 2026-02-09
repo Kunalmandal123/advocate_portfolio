@@ -7,8 +7,8 @@ const About: React.FC = () => {
       {/* SEO Meta Tags for About Page */}
       <head>
         <title>About Advocate Vikas Kumar - Expert Lawyer in Giridih Hazaribagh | B.A.LL.B, LL.M</title>
-        <meta name="description" content="Learn about Advocate Vikas Kumar - B.A.LL.B, LL.M qualified lawyer with 18+ years experience practicing at Civil Court Giridih, Civil Court Hazaribagh, SDM Court Bagodar-Sariya. Specialist in Civil, Criminal, Family & Property Law." />
-        <meta name="keywords" content="about advocate vikas kumar, lawyer in giridih experience, civil court hazaribagh advocate, sdm court bagodar lawyer, legal education, bar council registration, best advocate jharkhand" />
+        <meta name="description" content="Learn about Advocate Vikas Kumar - B.A.LL.B, LL.M qualified lawyer with 18+ years experience practicing at Civil Court Giridih, h, SDM Court Bagodar-Sariya. Specialist in Civil, Criminal, Family & Property Law." />
+        <meta name="keywords" content="about advocate vikas kumar, lawyer in giridih experience, h advocate, sdm court bagodar lawyer, legal education, bar council registration, best advocate jharkhand" />
       </head>
 
       {/* Hero Header with Local SEO */}
@@ -34,7 +34,7 @@ const About: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-2 bg-slate-800 px-4 py-2 rounded-lg text-sm border border-slate-700">
                   <BookOpen size={16} className="text-blue-400" />
-                  <span>10+ Years Experience</span>
+                  <span>5+ Years Experience</span>
                 </div>
               </div>
             </div>
@@ -69,7 +69,7 @@ const About: React.FC = () => {
                     he has established himself as one of the most reliable and trusted advocates in the Giridih and Hazaribagh regions.
                   </p>
                   <p className="mb-4">
-                    His practice spans across <strong>Civil Court Giridih, Civil Court Hazaribagh, and SDM Court Bagodar-Sariya</strong>, 
+                    His practice spans across <strong>Civil Court Giridih, h, and SDM Court Bagodar-Sariya</strong>, 
                     where he has successfully represented hundreds of clients in complex legal matters. His expertise extends to 
                     providing consultation for cases in the <strong>High Court of Ranchi</strong> jurisdiction.
                   </p>

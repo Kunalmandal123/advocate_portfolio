@@ -2310,12 +2310,12 @@ const Blog: React.FC = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
               Legal Knowledge Hub
               <span className="block text-[#c5a059] text-xl md:text-2xl mt-4 font-light">
-                Giridih Court Updates
+                Giridih & Hazaribagh Court Updates
               </span>
             </h1>
             
             <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-light mb-10">
-              Expert legal analysis, court procedures, and practical guides for Civil Court Giridih, Sub-Division Court Bagodar-Sariya and High Court Ranchi matters.
+              Expert legal analysis, court procedures, and practical guides for Civil Court Giridih, Hazaribagh, and SDM Court Bagodar-Sariya matters.
             </p>
 
             {/* Search Bar */}

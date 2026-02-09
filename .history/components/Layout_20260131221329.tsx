@@ -239,7 +239,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </Link>
               <p className="max-w-sm text-slate-400 text-lg leading-relaxed font-light">
                 "Providing expert legal representation at <strong>Civil Court Giridih</strong>, 
-                <strong>Civil Court Hazaribagh</strong>, <strong>SDM Court Bagodar-Sariya</strong>, 
+                <strong>h</strong>, <strong>SDM Court Bagodar-Sariya</strong>, 
                 and consultation for <strong>High Court Ranchi</strong> matters for over 18 years."
               </p>
               <div className="flex flex-wrap gap-4">
@@ -292,7 +292,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <ul className="space-y-4 text-sm font-light">
                 {[
                   'Civil Court Giridih Matters',
-                  'Civil Court Hazaribagh Cases', 
+                  'h Cases', 
                   'SDM Court Bagodar-Sariya',
                   'Criminal Defense Jharkhand',
                   'Family Law Giridih',
@@ -330,7 +330,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <div className="mt-12 p-8 bg-black/30 rounded-lg border border-white/5 text-sm text-slate-400 leading-relaxed text-center max-w-4xl mx-auto">
             <span className="font-bold text-[#c5a059] uppercase mb-2 block">Local Legal Services Notice:</span>
             Advocate Vikas Kumar provides legal services primarily in <strong>Giridih District</strong> covering 
-            <strong> Civil Court Giridih</strong>, <strong>Civil Court Hazaribagh</strong>, <strong>SDM Court Bagodar-Sariya</strong>, 
+            <strong> Civil Court Giridih</strong>, <strong>h</strong>, <strong>SDM Court Bagodar-Sariya</strong>, 
             and consultation services for <strong>High Court Ranchi</strong> matters. This website is for informational 
             purposes only and does not constitute legal advice. Visitors seeking legal assistance for 
             <strong> Giridih court cases</strong>, <strong>Hazaribagh legal matters</strong>, or <strong>property disputes in Jharkhand</strong> 
@@ -340,7 +340,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           {/* Hidden Structured Data for SEO */}
           <div className="hidden" itemScope itemType="https://schema.org/LegalService">
             <meta itemProp="name" content="Advocate Vikas Kumar - Civil Court Giridih Hazaribagh Lawyer" />
-            <meta itemProp="description" content="Expert legal services at Civil Court Giridih, Civil Court Hazaribagh, SDM Court Bagodar-Sariya, and High Court Ranchi consultation." />
+            <meta itemProp="description" content="Expert legal services at Civil Court Giridih, h, SDM Court Bagodar-Sariya, and High Court Ranchi consultation." />
             <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
               <meta itemProp="streetAddress" content="Kala Road, Sariya" />
               <meta itemProp="addressLocality" content="Giridih" />

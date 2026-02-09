@@ -44,27 +44,33 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const getNavStyles = () => {
     if (scrolled) {
       return {
-        background: 'bg-white/95 backdrop-blur-md shadow-lg py-4',
+        background: 'bg-white/95 backdrop-blur-md shadow-lg',
         textColor: 'text-[#0a1128]',
         logoColor: 'text-[#0a1128]',
-        inactiveColor: 'text-slate-500'
+        inactiveColor: 'text-slate-500',
+        height: 'h-20',
+        padding: 'py-4'
       };
     }
     
     if (isDarkPage) {
       return {
-        background: 'bg-transparent py-8',
+        background: 'bg-transparent',
         textColor: 'text-white',
         logoColor: 'text-white',
-        inactiveColor: 'text-slate-300'
+        inactiveColor: 'text-slate-300',
+        height: 'h-24',
+        padding: 'py-6'
       };
     }
     
     return {
-      background: 'bg-[#fcfcfc]/50 backdrop-blur-sm py-8',
+      background: 'bg-[#fcfcfc]/50 backdrop-blur-sm',
       textColor: 'text-[#0a1128]',
       logoColor: 'text-[#0a1128]',
-      inactiveColor: 'text-slate-400'
+      inactiveColor: 'text-slate-400',
+      height: 'h-24',
+      padding: 'py-6'
     };
   };
 
@@ -74,10 +80,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="flex flex-col min-h-screen font-sans bg-[#fcfcfc]">
       <FloatingActions />
       
-      {/* Fixed Header with improved responsive behavior */}
-      <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${navStyles.background}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center">
+      {/* Fixed Header with proper height management */}
+      <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${navStyles.background} ${navStyles.height}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+          <div className="flex justify-between items-center h-full">
             {/* Logo */}
             <Link 
               to="/" 
@@ -102,25 +108,28 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             
             {/* Desktop Navigation - Hidden on mobile */}
             <div className="hidden lg:flex items-center space-x-8 xl:space-x-12 flex-1 justify-end ml-8">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.path} 
-                  to={link.path}
-                  title={link.title}
-                  className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative group whitespace-nowrap ${
-                    location.pathname === link.path 
-                      ? navStyles.textColor 
-                      : `${navStyles.inactiveColor} hover:text-[#0a1128]`
-                  }`}
-                >
-                  {link.name}
-                  <motion.div 
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: location.pathname === link.path ? 1 : 0 }}
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#c5a059] origin-left"
-                  />
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link 
+                    key={link.path} 
+                    to={link.path}
+                    title={link.title}
+                    className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative group whitespace-nowrap ${
+                      isActive 
+                        ? 'text-[#c5a059]' // Always gold for active links
+                        : `${navStyles.inactiveColor} hover:text-[#c5a059]`
+                    }`}
+                  >
+                    {link.name}
+                    <motion.div 
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: isActive ? 1 : 0 }}
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#c5a059] origin-left"
+                    />
+                  </Link>
+                );
+              })}
               <Link 
                 to="/consultation" 
                 title="Free Legal Consultation with Advocate Vikas Kumar - Giridih Hazaribagh"
@@ -188,8 +197,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </AnimatePresence>
       </nav>
 
-      {/* Main Content with proper padding for fixed navbar */}
-      <main className="flex-grow pt-20 lg:pt-24">
+      {/* Main Content with proper padding for fixed navbar - INCREASED PADDING */}
+      <main className="flex-grow pt-28 lg:pt-32">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -227,14 +236,14 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     B.A.LL.B, LL.M | Civil Court Advocate
                   </span>
                   <span className="text-slate-400 text-xs mt-2 font-light">
-                    Giridih • Hazaribagh • Bagodar-Sariya • Ranchi
+                    Giridih • Bagodar-Sariya • Ranchi
                   </span>
                 </div>
               </Link>
               <p className="max-w-sm text-slate-400 text-lg leading-relaxed font-light">
                 "Providing expert legal representation at <strong>Civil Court Giridih</strong>, 
-                <strong>h</strong>, <strong>SDM Court Bagodar-Sariya</strong>, 
-                and consultation for <strong>High Court Ranchi</strong> matters for over 18 years."
+                , <strong>SDM Court Bagodar-Sariya</strong>, 
+                and consultation for <strong>High Court Ranchi</strong> matters for over 10 years."
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center space-x-2 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
@@ -256,14 +265,14 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   <Mail size={16} className="text-[#c5a059] mt-1 shrink-0" />
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest">Email</p>
-                    <p className="text-slate-300">advocatevikaskumar@legalservice.com</p>
+                    <p className="text-slate-300">vikashkmr450@gmail.com</p>
                   </div>
                 </li>
                 <li className="flex items-start space-x-4">
                   <Phone size={16} className="text-[#c5a059] mt-1 shrink-0" />
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest">Phone & WhatsApp</p>
-                    <p className="text-slate-300">+91 98765 43210</p>
+                    <p className="text-slate-300">+91 7549181849</p>
                   </div>
                 </li>
                 <li className="flex items-start space-x-4">
@@ -272,8 +281,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     <p className="text-slate-400 text-xs uppercase tracking-widest">Office Address</p>
                     <p className="text-slate-300 leading-relaxed">
                       Kala Road, Sariya, Giridih<br/>
-                      Jharkhand 815301<br/>
-                      Near Civil Court Giridih
+                      Jharkhand 825320<br/>
+            
                     </p>
                   </div>
                 </li>
@@ -311,7 +320,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <div className="pt-12 border-t border-white/5 text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] flex flex-col md:flex-row justify-between items-center gap-6">
             <p>
               &copy; {new Date().getFullYear()} Advocate Vikas Kumar Legal Chambers. 
-              <span className="text-slate-400 ml-2">BCI Registration No: [Your Registration]</span>
+              <span className="text-slate-400 ml-2"></span>
             </p>
             <div className="flex gap-8">
               <Link to="/privacy" className="hover:text-[#c5a059] transition-colors">Privacy Policy</Link>
@@ -339,10 +348,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <meta itemProp="streetAddress" content="Kala Road, Sariya" />
               <meta itemProp="addressLocality" content="Giridih" />
               <meta itemProp="addressRegion" content="Jharkhand" />
-              <meta itemProp="postalCode" content="815301" />
+              <meta itemProp="postalCode" content="825320" />
               <meta itemProp="addressCountry" content="India" />
             </div>
-            <meta itemProp="telephone" content="+919876543210" />
+            <meta itemProp="telephone" content="+917549181849" />
             <meta itemProp="openingHours" content="Mo-Sa 10:00-18:00" />
             <meta itemProp="areaServed" content="Giridih, Hazaribagh, Bagodar, Sariya, Ranchi" />
           </div>

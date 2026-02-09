@@ -29,7 +29,7 @@ const PracticeAreas: React.FC = () => {
               <span className="block text-[#c5a059] text-2xl md:text-3xl mt-4">Giridih & Hazaribagh Districts</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-              Comprehensive legal representation across Civil Court Giridih, Civil Court Hazaribagh, 
+              Comprehensive legal representation across Civil Court Giridih, h, 
               and SDM Court Bagodar-Sariya with proven success in complex litigation.
             </p>
           </div>

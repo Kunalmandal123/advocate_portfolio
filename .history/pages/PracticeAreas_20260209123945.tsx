@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PRACTICE_AREAS, getIcon } from '../constants';
 import { Clock, CheckCircle2, ChevronDown, ChevronUp, ArrowRight, BookOpen, Users, Briefcase, Shield, Home, FileText } from 'lucide-react';
 
@@ -11,6 +12,16 @@ const PracticeAreas: React.FC = () => {
     { value: "1200+", label: "Cases Handled", icon: <FileText className="w-4 h-4" /> },
     { value: "96%", label: "Success Rate", icon: <CheckCircle2 className="w-4 h-4" /> },
     { value: "24/7", label: "Client Support", icon: <Users className="w-4 h-4" /> },
+  ];
+
+  // We keep the original array but reorder the items manually
+  // so Criminal Defense comes before Property & Revenue
+  const reorderedPracticeAreas = [
+    ...PRACTICE_AREAS.filter(area => area.id === 'criminal-law'),     // Criminal Defense first
+    ...PRACTICE_AREAS.filter(area => area.id === 'property-disputes'), // Property & Revenue second
+    ...PRACTICE_AREAS.filter(area => 
+      area.id !== 'criminal-law' && area.id !== 'property-disputes'
+    ), // all other areas remain in their original order
   ];
 
   return (
@@ -26,11 +37,11 @@ const PracticeAreas: React.FC = () => {
             </div>
             <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
               Specialized Legal Services
-              <span className="block text-[#c5a059] text-2xl md:text-3xl mt-4">Giridih & Hazaribagh Districts</span>
+              <span className="block text-[#c5a059] text-2xl md:text-3xl mt-4">Giridih Districts</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-              Comprehensive legal representation across Civil Court Giridih, h, 
-              and SDM Court Bagodar-Sariya with proven success in complex litigation.
+              Comprehensive legal representation across Civil Court Giridih, 
+              and Sub-Division Court Bagodar-Sariya with proven success in complex litigation.
             </p>
           </div>
 
@@ -66,7 +77,7 @@ const PracticeAreas: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {PRACTICE_AREAS.map((area) => {
+          {reorderedPracticeAreas.map((area) => {
             const isExpanded = expandedId === area.id;
             const isHovered = hoveredId === area.id;
             
@@ -101,7 +112,7 @@ const PracticeAreas: React.FC = () => {
                           : 'bg-slate-50 text-[#0a1128]'
                       }`}>
                         {React.cloneElement(getIcon(area.icon), {
-                          className: `w-6 h-6 ${isExpanded || isHovered ? 'text-white' : 'text-[#c5a059]'}`
+                          className: `w-6 h-6 ${isExpanded || isHovered ? 'text-white' : 'text-[#c5a059]'}` 
                         })}
                       </div>
                       <h3 className="text-xl md:text-2xl font-serif text-slate-900 group-hover:text-[#0a1128] transition-colors">
@@ -223,10 +234,13 @@ const PracticeAreas: React.FC = () => {
                               Schedule a free consultation to discuss your specific case requirements.
                             </p>
                           </div>
-                          <button className="bg-white text-[#0a1128] px-6 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors flex items-center space-x-2 whitespace-nowrap">
+                          <Link
+                            to="/consultation"
+                            className="bg-white text-[#0a1128] px-6 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors flex items-center space-x-2 whitespace-nowrap"
+                          >
                             <span>Book Free Consultation</span>
                             <ArrowRight className="w-4 h-4" />
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -247,12 +261,18 @@ const PracticeAreas: React.FC = () => {
               Our legal experts can help identify the best approach for your specific situation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-[#c5a059] px-8 py-4 rounded-xl font-semibold hover:bg-slate-50 transition-colors shadow-lg">
+              <Link
+                to="/consultation"
+                className="bg-white text-[#c5a059] px-8 py-4 rounded-xl font-semibold hover:bg-slate-50 transition-colors shadow-lg"
+              >
                 Schedule Free Consultation
-              </button>
-              <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors">
+              </Link>
+              <a
+                href="tel:+917549181849"
+                className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors"
+              >
                 Call Now: +91 7549181849
-              </button>
+              </a>
             </div>
           </div>
         </div>

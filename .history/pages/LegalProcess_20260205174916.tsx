@@ -34,7 +34,7 @@ const LegalProcess: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
             {[
               { value: "96%", label: "Success" },
-              { value: "10+", label: "Years" },
+              { value: "5+", label: "Years" },
               { value: "1200+", label: "Cases" },
               { value: "24/7", label: "Support" }
             ].map((stat, idx) => (

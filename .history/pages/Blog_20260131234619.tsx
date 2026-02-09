@@ -39,7 +39,7 @@ const REAL_BLOG_POSTS = [
           <li>• Survey map from Circle Officer</li>
           <li>• Registered sale deed chain</li>
           <li>• Encumbrance certificate (EC)</li>
-          <li>• Revenue receipts (10+ years)</li>
+          <li>• Revenue receipts (5+ years)</li>
         </ul>
       </div>
       

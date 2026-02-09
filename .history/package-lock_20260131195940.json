@@ -1,11 +1,11 @@
 {
-  "name": "vikas-kumar-portfolio",
+  "name": "julian-vance-portfolio",
   "version": "1.0.0",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
-      "name": "vikas-kumar-portfolio",
+      "name": "julian-vance-portfolio",
       "version": "1.0.0",
       "dependencies": {
         "framer-motion": "^12.4.3",
@@ -324,7 +324,7 @@
     "node_modules/@esbuild/aix-ppc64": {
       "version": "0.25.12",
       "resolved": "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.25.12.tgz",
-      "integrity": "sha512-Hhmwd6CInZ3dwpuGTF8fJG6yoWmsToE+vYgD4nytZVxcu1ulHpUQRAB1UJ8+N1Am3Mz3+xOByoQoSZf4D+CpkA==",
+      "integrity": "sha512-Hhmwd6CInZ3dwpuGTF8fJG6yoWmsToE+vYgD4nytZVxcu1ulHpUQRAB1UJ8+N1Am3Mz4+xOByoQoSZf4D+CpkA==",
       "cpu": [
         "ppc64"
       ],
@@ -528,7 +528,7 @@
     "node_modules/@esbuild/linux-mips64el": {
       "version": "0.25.12",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-mips64el/-/linux-mips64el-0.25.12.tgz",
-      "integrity": "sha512-iyRrM1Pzy9GFMDLsXn1iHUm18nhKnNMWscjmp3+hpafcZjrr2WbT//d20xaGljXDBYHqRcl8HnxbX6uaA/eGVw==",
+      "integrity": "sha512-iyRrM1Pzy9GFMDLsXn1iHUm18nhKnNMWscjmp4+hpafcZjrr2WbT//d20xaGljXDBYHqRcl8HnxbX6uaA/eGVw==",
       "cpu": [
         "mips64el"
       ],
@@ -830,7 +830,7 @@
     "node_modules/@nodelib/fs.stat": {
       "version": "2.0.5",
       "resolved": "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz",
-      "integrity": "sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY3+A==",
+      "integrity": "sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==",
       "dev": true,
       "license": "MIT",
       "engines": {
@@ -2014,7 +2014,7 @@
     "node_modules/mz": {
       "version": "2.7.0",
       "resolved": "https://registry.npmjs.org/mz/-/mz-2.7.0.tgz",
-      "integrity": "sha512-z81GNO7nnYMEhrGh9LeymoE3+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==",
+      "integrity": "sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==",
       "dev": true,
       "license": "MIT",
       "dependencies": {
@@ -2655,7 +2655,7 @@
     "node_modules/thenify-all": {
       "version": "1.6.0",
       "resolved": "https://registry.npmjs.org/thenify-all/-/thenify-all-1.6.0.tgz",
-      "integrity": "sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo63+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==",
+      "integrity": "sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==",
       "dev": true,
       "license": "MIT",
       "dependencies": {
@@ -2756,7 +2756,7 @@
     "node_modules/update-browserslist-db": {
       "version": "1.2.3",
       "resolved": "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz",
-      "integrity": "sha512-Js0m9cx+qOgDxo0eMiFGEueWztz+d3+M3rGlmKPT+T4IS/jP4ylw3Nwpu6cpTTP8R1MAC1kF4VbdLt3ARf209w==",
+      "integrity": "sha512-Js0m9cx+qOgDxo0eMiFGEueWztz+d4+M3rGlmKPT+T4IS/jP4ylw3Nwpu6cpTTP8R1MAC1kF4VbdLt3ARf209w==",
       "dev": true,
       "funding": [
         {
